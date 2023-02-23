@@ -15,31 +15,31 @@ let r = 0;
 u = true
 for(let j = 0; j <=7; j++){
   let t = 0;
-  u = !u
   if(u == true){
     for(let i = 0; i <= 3; i++){
-      fill(0)
+      //black color
+      fill(66, 48, 32)
       square(((width - boardSideLength) / 2) + squareSideLength * t, ((height - boardSideLength) / 2) + squareSideLength * r, squareSideLength);
       t++
-  
-      fill(200)
+      //White color
+      fill(213, 176, 122)
       square(((width - boardSideLength) / 2) + squareSideLength * t, ((height - boardSideLength) / 2) + squareSideLength * r, squareSideLength);
       t++
     }
   }
   else{
     for(let i = 0; i <= 3; i++){
-      fill(200)
+      //White color
+      fill(213, 176, 122)
       square(((width - boardSideLength) / 2) + squareSideLength * t, ((height - boardSideLength) / 2) + squareSideLength * r, squareSideLength);
       t++
-  
-      fill(0)
+      //black color
+      fill(66, 48, 32)
       square(((width - boardSideLength) / 2) + squareSideLength * t, ((height - boardSideLength) / 2) + squareSideLength * r, squareSideLength);
       t++
     }
   }
- 
- 
+  u = !u
   r++
 }
 }
