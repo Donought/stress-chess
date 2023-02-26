@@ -1,0 +1,14 @@
+<TextureAtlas imagePath="sheet.png" width="2918" height="256">
+    <sprite n="b_bishop_png_256px.png" x="0" y="0" w="254" h="256"/>
+    <sprite n="b_king_png_256px.png" x="254" y="0" w="254" h="256"/>
+    <sprite n="b_knight_png_256px.png" x="508" y="0" w="229" h="256"/>
+    <sprite n="b_pawn_png_256px.png" x="737" y="0" w="209" h="256"/>
+    <sprite n="b_queen_png_256px.png" x="946" y="0" w="281" h="256"/>
+    <sprite n="b_rook_png_256px.png" x="1227" y="0" w="232" h="256"/>
+    <sprite n="w_bishop_png_256px.png" x="1459" y="0" w="254" h="256"/>
+    <sprite n="w_king_png_256px.png" x="1713" y="0" w="254" h="256"/>
+    <sprite n="w_knight_png_256px.png" x="1967" y="0" w="229" h="256"/>
+    <sprite n="w_pawn_png_256px.png" x="2196" y="0" w="209" h="256"/>
+    <sprite n="w_queen_png_256px.png" x="2405" y="0" w="281" h="256"/>
+    <sprite n="w_rook_png_256px.png" x="2686" y="0" w="232" h="256"/>
+</TextureAtlas>
