@@ -2,9 +2,8 @@ let data;
 let sheet;
 let sprites = [];
 
-let game = []; // board, but that name was taken
-
-let test;
+let board = []; // board, but that name was taken
+let offset = 0.85; // How much smaller the pieces are than the squares
 
 function preload() {
   data = loadXML("spritesheet/data.xml");
@@ -14,7 +13,7 @@ function preload() {
 function setup() {
   createCanvas(innerWidth, innerHeight);
 
-  // Cut out sheet according to data and push sprites to array
+  // Cut out sheet according to data and push cutouts to array
   let children = data.getChildren("sprite");
   for (let i = 0; i < children.length; i++) {
     let x = children[i].getNum("x");
@@ -25,35 +24,30 @@ function setup() {
     sprites.push(sheet.get(x, y, w, h));
   }
 
-  test = new Pawn(1);
-
   newGame();
-
-  console.log(game);
+  console.log(board);
 }
 
 function draw() {
   background(240);
-  board();
-
-  // Just to illustrate that spritesheet works
-  imageMode(CENTER);
-  let img = test.sprite;
-  image(img, width / 2, height / 2, img.width, img.height);
+  drawBoard();
 }
 
-// Extremely temporary function to show how the board is made
-// I'll soon make a piece to show how it's used. I realize this is basically useless
+// Function that creates the board array
 function newGame() {
+  // Creates board full of empty tiles
   for (let i = 0; i < 8; i++) {
-    game.push([]);
+    board.push([]);
     for (let j = 0; j < 8; j++) {
-      game[i].push("tile");
+      board[i].push("empty");
     }
   }
+
+  // Adds a single white pawn on d2
+  board[3].splice(6, 1, new Pawn(1));
 }
 
-function board() {
+function drawBoard() {
   noStroke();
   let boardSideLength = height - (height / 20) * 2;
   let squareSideLength = boardSideLength / 8;
@@ -103,4 +97,27 @@ function board() {
     u = !u;
     r++;
   }
+
+  // Add piece sprites
+  push();
+  translate(
+    (width - boardSideLength) / 2 + squareSideLength / 2,
+    (height - boardSideLength) / 2 + squareSideLength / 2
+  );
+  board.forEach(function (row, i) {
+    row.forEach(function (tile, j) {
+      if (tile != "empty") {
+        let temp = tile.sprite;
+        imageMode(CENTER);
+        image(
+          temp,
+          i * squareSideLength,
+          j * squareSideLength,
+          temp.width * (squareSideLength / temp.height) * offset,
+          squareSideLength * offset
+        );
+      }
+    });
+  });
+  pop();
 }
