@@ -4,6 +4,8 @@ let sprites = [];
 
 let game = []; // board, but that name was taken
 
+let test;
+
 function preload() {
   data = loadXML("spritesheet/data.xml");
   sheet = loadImage("spritesheet/sheet.png");
@@ -23,6 +25,8 @@ function setup() {
     sprites.push(sheet.get(x, y, w, h));
   }
 
+  test = new Pawn(1);
+
   newGame();
 
   console.log(game);
@@ -34,7 +38,7 @@ function draw() {
 
   // Just to illustrate that spritesheet works
   imageMode(CENTER);
-  let img = sprites[7];
+  let img = test.sprite;
   image(img, width / 2, height / 2, img.width, img.height);
 }
 
