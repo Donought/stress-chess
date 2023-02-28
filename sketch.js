@@ -55,6 +55,7 @@ function drawBoard() {
   u = true;
   for (let j = 0; j <= 7; j++) {
     let t = 0;
+    u = !u;
     if (u == true) {
       for (let i = 0; i <= 3; i++) {
         //black color
@@ -94,7 +95,7 @@ function drawBoard() {
         t++;
       }
     }
-    u = !u;
+  
     r++;
   }
 
