@@ -53,12 +53,13 @@ function drawBoard() {
   let squareSideLength = boardSideLength / 8;
   let r = 0;
   u = true;
+  //Creates colored squares
   for (let j = 0; j <= 7; j++) {
     let t = 0;
     u = !u;
     if (u == true) {
       for (let i = 0; i <= 3; i++) {
-        //black color
+        //Dark color
         fill(66, 48, 32);
         square(
           (width - boardSideLength) / 2 + squareSideLength * t,
@@ -66,7 +67,7 @@ function drawBoard() {
           squareSideLength
         );
         t++;
-        //White color
+        //Light color
         fill(213, 176, 122);
         square(
           (width - boardSideLength) / 2 + squareSideLength * t,
@@ -77,7 +78,7 @@ function drawBoard() {
       }
     } else {
       for (let i = 0; i <= 3; i++) {
-        //White color
+        //Light color
         fill(213, 176, 122);
         square(
           (width - boardSideLength) / 2 + squareSideLength * t,
@@ -85,7 +86,7 @@ function drawBoard() {
           squareSideLength
         );
         t++;
-        //black color
+        //Dark color
         fill(66, 48, 32);
         square(
           (width - boardSideLength) / 2 + squareSideLength * t,
@@ -98,6 +99,11 @@ function drawBoard() {
   
     r++;
   }
+
+  //Numbers at the side
+  fill(213, 176, 122);
+  re
+
 
   // Add piece sprites
   push();
