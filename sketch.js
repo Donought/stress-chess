@@ -1,6 +1,7 @@
 let data;
 let sheet;
 let sprites = [];
+let bogstaver = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
 let board = []; // Contains an array that represents the board
 let offset = 0.85; // How much smaller the pieces are than the squares
@@ -90,53 +91,72 @@ function newGame() {
 
 function drawBoard() {
 	noStroke();
-	let r = 0;
-	u = true;
-	for (let j = 0; j <= 7; j++) {
-		let t = 0;
-		u = !u;
-		if (u == true) {
-			for (let i = 0; i <= 3; i++) {
-				//black color
-				fill(66, 48, 32);
-				square(
-					(width - boardSideLength) / 2 + squareSideLength * t,
-					(height - boardSideLength) / 2 + squareSideLength * r,
-					squareSideLength
-				);
-				t++;
-				//White color
-				fill(213, 176, 122);
-				square(
-					(width - boardSideLength) / 2 + squareSideLength * t,
-					(height - boardSideLength) / 2 + squareSideLength * r,
-					squareSideLength
-				);
-				t++;
-			}
-		} else {
-			for (let i = 0; i <= 3; i++) {
-				//White color
-				fill(213, 176, 122);
-				square(
-					(width - boardSideLength) / 2 + squareSideLength * t,
-					(height - boardSideLength) / 2 + squareSideLength * r,
-					squareSideLength
-				);
-				t++;
-				//black color
-				fill(66, 48, 32);
-				square(
-					(width - boardSideLength) / 2 + squareSideLength * t,
-					(height - boardSideLength) / 2 + squareSideLength * r,
-					squareSideLength
-				);
-				t++;
-			}
-		}
+  let boardSideLength = height - (height / 20) * 2;
+  let squareSideLength = boardSideLength / 8;
+  let boardX = (width - boardSideLength) / 2;
+  let boardY = (height - boardSideLength) / 2
+  let r = 0;
+  u = true;
+  //Creates colored squares
+  for (let j = 0; j <= 7; j++) {
+    let t = 0;
+    u = !u;
+    if (u == true) {
+      for (let i = 0; i <= 3; i++) {
+        //Dark color
+        fill(66, 48, 32);
+        square(
+          boardX + squareSideLength * t,
+          boardY + squareSideLength * r,
+          squareSideLength
+        );
+        t++;
+        //Light color
+        fill(213, 176, 122);
+        square(
+          boardX + squareSideLength * t,
+          boardY + squareSideLength * r,
+          squareSideLength
+        );
+        t++;
+      }
+    } else {
+      for (let i = 0; i <= 3; i++) {
+        //Light color
+        fill(213, 176, 122);
+        square(
+          boardX + squareSideLength * t,
+          boardY + squareSideLength * r,
+          squareSideLength
+        );
+        t++;
+        //Dark color
+        fill(66, 48, 32);
+        square(
+          boardX + squareSideLength * t,
+          boardY + squareSideLength * r,
+          squareSideLength
+        );
+        t++;
+      }
+    }
+  
+    r++;
+  }
 
-		r++;
-	}
+  //Numbers and letters at the sides
+  for(let i = 0; i < 8; i++){
+    fill(0)
+    textAlign(CENTER, CENTER);
+    textSize(boardY - (boardY / 10));
+    text(bogstaver[i], boardX + squareSideLength * i, 0, squareSideLength, boardY);
+    text(bogstaver[i], boardX + squareSideLength * i, height - boardY, squareSideLength, boardY);
+
+    textAlign(RIGHT, CENTER)
+    text(8 - i, boardX - (squareSideLength / 4), boardY + (squareSideLength / 2) + squareSideLength * i);
+    textAlign(LEFT, CENTER);
+    text(8 - i, width - boardX + (squareSideLength / 4) , boardY + (squareSideLength / 2) + squareSideLength * i);
+  }
 
 	// Add piece sprites
 	push();
