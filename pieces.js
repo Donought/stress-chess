@@ -100,3 +100,22 @@ class King extends Base {
 	}
 }
 
+class Bishop extends Base {
+	constructor(c) {
+		super(c, 0);
+	}
+
+	rules(x, y) {
+		let m = [];
+		// Basic rules
+        for (let i = 0; i < 9; i++) {
+			//Top Left
+			m.push([x - i, y - i]);
+			m.push([x + i, y - i]);
+			m.push([x - i, y + i]);
+			m.push([x + i, y + i]);
+		  }           
+        
+		this.moves = m;
+	}
+}
