@@ -117,7 +117,6 @@ function newGame() {
   	board[3].splice(0, 1, new Queen(0));
 
 
-
 	//White pieces
 	for(let i = 0; i < 8; i++){
 	board[0 + i].splice(6, 1, new Pawn(1));
