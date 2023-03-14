@@ -30,7 +30,7 @@ class Pawn extends Base {
 	}
 }
 
-class Tower extends Base{
+class Rook extends Base{
 	constructor(c){
 		super(c,5)
 }
@@ -70,6 +70,36 @@ rules(x, y) {
 		this.moves = m;
 	}
 }
-
+class Bishop extends Base{
+	constructor(c){
+super(c,0)
+}
+rules(x, y) {
+	let m = [];
+	// Basic rules
+	if (0 == this.color) {
+	
+	// UpLeft
+	for (let i = 0; i < 8; i++) {
+		m.push([x-i, y-i ]);
+	  }
+	// UpRight
+	for (let i = 0; i < 8; i++) {
+		m.push([x+i, y-i ]);
+	  }
+	  	// DownLeft
+	for (let i = 0; i < 8; i++) {
+		m.push([x-i, y+i ]);
+	  }
+	  	// DownRight
+	for (let i = 0; i < 8; i++) {
+		m.push([x+i, y+i ]);
+	  }
+		
+	} 
+	this.moves = m;
+}
+	
+}
 
 

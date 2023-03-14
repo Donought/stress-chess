@@ -102,10 +102,7 @@ function newGame() {
 
 	// Adds a single white pawn on d2
 
-	board[3].splice(1, 1, new Pawn(0));
-	board[4].splice(1, 1, new King(0));
-	board[4].splice(6, 1, new King(1));
-  board[4].splice(4, 1, new Tower(0));
+    board[4].splice(4, 1, new Bishop(0));
 }
 
 function drawBoard() {
