@@ -70,21 +70,23 @@ function mousePressed() {
 	actTiles = [];
 	actPiece = [];
 
-
 	// Only do something if you clicked within the board and if the levver hasn't been activated
 	if (x <= 7 && y <= 7 && 0 <= x && 0 <= y && lever == 0) {
 		let tile = board[x][y]; // Gets clicked tile from board
 
 		// If tile is not empty, then...
-
 		if (tile != "empty") {
 			// Set coords as active piece
 			actPiece = [x, y];
 			// Run rule function for piece
 			tile.rules(x, y);
-			// Set active (blue) tiles to fruit of rules() function, the pieces moves
+
 			// GENERAL RULES CAN BE PUT HERE
-			actTiles = tile.moves;
+			// Use .filter() method to only put tiles that match certain conditions from tile.moves to actTiles
+			// The function is written as an arrow function
+			actTiles = tile.moves.filter(function (tile) {
+				return 0 <= tile[0] && tile[0] <= 7 && 0 <= tile[1] && tile[1] <= 7;
+			});
 			console.log(actTiles);
 		}
 	}
@@ -105,77 +107,97 @@ function newGame() {
 	board[3].splice(1, 1, new Pawn(0));
 	board[4].splice(1, 1, new King(0));
 	board[4].splice(6, 1, new King(1));
-  board[4].splice(4, 1, new Tower(0));
+	board[4].splice(4, 1, new Tower(0));
 }
 
 function drawBoard() {
-noStroke();
-  let boardSideLength = height - (height / 20) * 2;
-  let squareSideLength = boardSideLength / 8;
-  let boardX = (width - boardSideLength) / 2;
-  let boardY = (height - boardSideLength) / 2
-  let r = 0;
-  u = true;
-  //Creates colored squares
-  for (let j = 0; j <= 7; j++) {
-    let t = 0;
-    u = !u;
-    if (u == true) {
-      for (let i = 0; i <= 3; i++) {
-        //Dark color
-        fill(66, 48, 32);
-        square(
-          boardX + squareSideLength * t,
-          boardY + squareSideLength * r,
-          squareSideLength
-        );
-        t++;
-        //Light color
-        fill(213, 176, 122);
-        square(
-          boardX + squareSideLength * t,
-          boardY + squareSideLength * r,
-          squareSideLength
-        );
-        t++;
-      }
-    } else {
-      for (let i = 0; i <= 3; i++) {
-        //Light color
-        fill(213, 176, 122);
-        square(
-          boardX + squareSideLength * t,
-          boardY + squareSideLength * r,
-          squareSideLength
-        );
-        t++;
-        //Dark color
-        fill(66, 48, 32);
-        square(
-          boardX + squareSideLength * t,
-          boardY + squareSideLength * r,
-          squareSideLength
-        );
-        t++;
-      }
-    }
-  
-    r++;
-  }
+	noStroke();
+	let boardSideLength = height - (height / 20) * 2;
+	let squareSideLength = boardSideLength / 8;
+	let boardX = (width - boardSideLength) / 2;
+	let boardY = (height - boardSideLength) / 2;
+	let r = 0;
+	u = true;
+	//Creates colored squares
+	for (let j = 0; j <= 7; j++) {
+		let t = 0;
+		u = !u;
+		if (u == true) {
+			for (let i = 0; i <= 3; i++) {
+				//Dark color
+				fill(66, 48, 32);
+				square(
+					boardX + squareSideLength * t,
+					boardY + squareSideLength * r,
+					squareSideLength
+				);
+				t++;
+				//Light color
+				fill(213, 176, 122);
+				square(
+					boardX + squareSideLength * t,
+					boardY + squareSideLength * r,
+					squareSideLength
+				);
+				t++;
+			}
+		} else {
+			for (let i = 0; i <= 3; i++) {
+				//Light color
+				fill(213, 176, 122);
+				square(
+					boardX + squareSideLength * t,
+					boardY + squareSideLength * r,
+					squareSideLength
+				);
+				t++;
+				//Dark color
+				fill(66, 48, 32);
+				square(
+					boardX + squareSideLength * t,
+					boardY + squareSideLength * r,
+					squareSideLength
+				);
+				t++;
+			}
+		}
 
-  //Numbers and letters at the sides
-  for(let i = 0; i < 8; i++){
-    fill(0)
-    textAlign(CENTER, CENTER);
-    textSize(boardY - (boardY / 10));
-    text(bogstaver[i], boardX + squareSideLength * i, 0, squareSideLength, boardY);
-    text(bogstaver[i], boardX + squareSideLength * i, height - boardY, squareSideLength, boardY);
+		r++;
+	}
 
-    textAlign(RIGHT, CENTER)
-    text(8 - i, boardX - (squareSideLength / 4), boardY + (squareSideLength / 2) + squareSideLength * i);
-    textAlign(LEFT, CENTER);
-    text(8 - i, width - boardX + (squareSideLength / 4) , boardY + (squareSideLength / 2) + squareSideLength * i);
-  }
+	//Numbers and letters at the sides
+	for (let i = 0; i < 8; i++) {
+		fill(0);
+		textAlign(CENTER, CENTER);
+		textSize(boardY - boardY / 10);
+		text(
+			bogstaver[i],
+			boardX + squareSideLength * i,
+			0,
+			squareSideLength,
+			boardY
+		);
+		text(
+			bogstaver[i],
+			boardX + squareSideLength * i,
+			height - boardY,
+			squareSideLength,
+			boardY
+		);
+
+		textAlign(RIGHT, CENTER);
+		text(
+			8 - i,
+			boardX - squareSideLength / 4,
+			boardY + squareSideLength / 2 + squareSideLength * i
+		);
+		textAlign(LEFT, CENTER);
+		text(
+			8 - i,
+			width - boardX + squareSideLength / 4,
+			boardY + squareSideLength / 2 + squareSideLength * i
+		);
+	}
 
 	// Add piece sprites
 	push();
