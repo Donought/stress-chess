@@ -112,9 +112,9 @@ function newGame() {
 	board[7].splice(0, 1, new Rook(0));
   	board[1].splice(0, 1, new Knight(0));
   	board[6].splice(0, 1, new Knight(0));
-	/*board[2].splice(0, 1, new Bishop(0));
+	board[2].splice(0, 1, new Bishop(0));
   	board[5].splice(0, 1, new Bishop(0));
-  	board[3].splice(0, 1, new Queen(0));*/
+  	board[3].splice(0, 1, new Queen(0));
 
 
 
@@ -127,9 +127,9 @@ function newGame() {
 	board[7].splice(7, 1, new Rook(1));
 	board[1].splice(7, 1, new Knight(1));
 	board[6].splice(7, 1, new Knight(1));
-	/*board[2].splice(7, 1, new Bishop(1));
+	board[2].splice(7, 1, new Bishop(1));
 	board[5].splice(7, 1, new Bishop(1));
-	board[3].splice(7, 1, new Queen(1));*/
+	board[3].splice(7, 1, new Queen(1));
 
 }
 
