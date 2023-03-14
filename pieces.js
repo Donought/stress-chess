@@ -152,6 +152,6 @@ class Knight extends Base {
 }
 class Queen extends Base {
 	constructor(c) {
-		super(c, 2);
+		super(c, 4);
 	}
 }
