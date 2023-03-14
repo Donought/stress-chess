@@ -100,6 +100,7 @@ class King extends Base {
 	}
 }
 
+
 class Bishop extends Base {
 	constructor(c) {
 		super(c, 0);
