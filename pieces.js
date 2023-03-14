@@ -30,7 +30,7 @@ class Pawn extends Base {
 	}
 }
 
-class Tower extends Base{
+class Rook extends Base{
 	constructor(c){
 		super(c,5)
 }
@@ -99,4 +99,3 @@ class King extends Base {
 		this.moves = m;
 	}
 }
-
