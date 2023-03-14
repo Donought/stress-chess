@@ -30,11 +30,11 @@ class Pawn extends Base {
 	}
 }
 
-class Rook extends Base{
-	constructor(c){
-		super(c,5)
-}
-rules(x, y) {
+class Rook extends Base {
+	constructor(c) {
+		super(c, 5);
+	}
+	rules(x, y) {
 		let m = [];
 		// Basic rules
 		if (0 == this.color) {
@@ -42,30 +42,31 @@ rules(x, y) {
 			// Up movement
 
 			for (let i = 0; i < 8; i++) {
-			{
-				m.push([x, y - 1]);
-			
-				y = y - 1}
+				{
+					m.push([x, y - 1]);
+
+					y = y - 1;
+				}
 			}
 
-			y = temp;	
+			y = temp;
 			// Down movement
-				for (let i = 0; i < 8; i++) {
-					m.push([x, y + 1]);
-					y = y + 1
-				  }
-				y = temp;
-		} 
-		// Left movement
-		let temp = x
-		for (let i = 0; i < 8; i++) {
-			m.push([x -1, y]);
-			x = x - 1
+			for (let i = 0; i < 8; i++) {
+				m.push([x, y + 1]);
+				y = y + 1;
+			}
+			y = temp;
 		}
-		x = temp
+		// Left movement
+		let temp = x;
 		for (let i = 0; i < 8; i++) {
-			m.push([x +1, y]);
-			x = x + 1
+			m.push([x - 1, y]);
+			x = x - 1;
+		}
+		x = temp;
+		for (let i = 0; i < 8; i++) {
+			m.push([x + 1, y]);
+			x = x + 1;
 		}
 		this.moves = m;
 	}
@@ -79,27 +80,26 @@ class King extends Base {
 	rules(x, y) {
 		let m = [];
 		// Basic rules
-        // 1 op 
-        m.push([x, y + 1]);
-        // 1 ned            
-        m.push([x, y - 1]); 
-        // 1 til højre   
-        m.push([x + 1, y]); 
-        // 1 til venstre    
-        m.push([x - 1, y]); 
-        // skråt op til venstre  
-        m.push([x + 1, y - 1]); 
-        // skråt op til højre    
-        m.push([x - 1, y - 1]);
-        // skråt ned til venstre  
-        m.push([x + 1, y + 1]); 
-        // skråt ned til højre    
-        m.push([x - 1, y + 1]);           
-        
+		// 1 op
+		m.push([x, y + 1]);
+		// 1 ned
+		m.push([x, y - 1]);
+		// 1 til højre
+		m.push([x + 1, y]);
+		// 1 til venstre
+		m.push([x - 1, y]);
+		// skråt op til venstre
+		m.push([x + 1, y - 1]);
+		// skråt op til højre
+		m.push([x - 1, y - 1]);
+		// skråt ned til venstre
+		m.push([x + 1, y + 1]);
+		// skråt ned til højre
+		m.push([x - 1, y + 1]);
+
 		this.moves = m;
 	}
 }
-
 
 class Bishop extends Base {
 	constructor(c) {
@@ -109,14 +109,14 @@ class Bishop extends Base {
 	rules(x, y) {
 		let m = [];
 		// Basic rules
-        for (let i = 0; i < 9; i++) {
+		for (let i = 0; i < 9; i++) {
 			//Top Left
 			m.push([x - i, y - i]);
 			m.push([x + i, y - i]);
 			m.push([x - i, y + i]);
 			m.push([x + i, y + i]);
-		  }           
-        
+		}
+
 		this.moves = m;
 	}
 }
@@ -124,32 +124,32 @@ class Bishop extends Base {
 class Knight extends Base {
 	constructor(c) {
 		super(c, 2);
-	} 
-        rules(x, y) {
-        let m = [];
-        //Moves
-        //1
-        m.push([x - 1, y - 2]);
-        //2
-        m.push([x + 1, y - 2]);
-        //3
-        m.push([x + 2, y - 1]);
-        //4
-        m.push([x + 2, y + 1]);
-        //5
-        m.push([x + 1, y + 2]);
-        //6
-        m.push([x - 1, y + 2]);
-        //7
-        m.push([x - 2, y + 1]);
-        //8
-        m.push([x - 2, y - 1]);
-        
-        this.moves = m;
-    }
+	}
+	rules(x, y) {
+		let m = [];
+		//Moves
+		//1
+		m.push([x - 1, y - 2]);
+		//2
+		m.push([x + 1, y - 2]);
+		//3
+		m.push([x + 2, y - 1]);
+		//4
+		m.push([x + 2, y + 1]);
+		//5
+		m.push([x + 1, y + 2]);
+		//6
+		m.push([x - 1, y + 2]);
+		//7
+		m.push([x - 2, y + 1]);
+		//8
+		m.push([x - 2, y - 1]);
+
+		this.moves = m;
+	}
 }
 class Queen extends Base {
 	constructor(c) {
-		super(c, 4);
+		super(c, 2);
 	}
 }
