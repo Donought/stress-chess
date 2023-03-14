@@ -34,6 +34,7 @@ class Rook extends Base {
 	constructor(c) {
 		super(c, 5);
 	}
+
 	rules(x, y) {
 		let m = [];
 		// Basic rules
@@ -125,6 +126,7 @@ class Knight extends Base {
 	constructor(c) {
 		super(c, 2);
 	}
+
 	rules(x, y) {
 		let m = [];
 		//Moves
