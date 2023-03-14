@@ -44,7 +44,9 @@ function draw() {
 }
 
 function mousePressed() {
-	let lever = 0;
+	let lever = 0; // Switch, whatever
+
+	// Grid coordinates for tile that you pressed on
 	let x = Math.floor(
 		(mouseX - (width - boardSideLength) / 2) / squareSideLength
 	);
@@ -52,8 +54,12 @@ function mousePressed() {
 		(mouseY - (height - boardSideLength) / 2) / squareSideLength
 	);
 
+	// Only runs when tiles isn't empty
+	// Runs through active (blue) tiles
 	actTiles.forEach(function (tile) {
+		// If tile has been clicked...
 		if (tile[0] == x && tile[1] == y) {
+			// Move active piece to tile by deleting it from previous tile and adding it to new tile
 			let temp = board[actPiece[0]][actPiece[1]];
 			board[actPiece[0]].splice(actPiece[1], 1, "empty");
 			board[x].splice(y, 1, temp);
@@ -64,11 +70,20 @@ function mousePressed() {
 	actTiles = [];
 	actPiece = [];
 
+
+	// Only do something if you clicked within the board and if the levver hasn't been activated
 	if (x <= 7 && y <= 7 && 0 <= x && 0 <= y && lever == 0) {
-		let tile = board[x][y];
+		let tile = board[x][y]; // Gets clicked tile from board
+
+		// If tile is not empty, then...
+
 		if (tile != "empty") {
+			// Set coords as active piece
 			actPiece = [x, y];
+			// Run rule function for piece
 			tile.rules(x, y);
+			// Set active (blue) tiles to fruit of rules() function, the pieces moves
+			// GENERAL RULES CAN BE PUT HERE
 			actTiles = tile.moves;
 			console.log(actTiles);
 		}
@@ -86,9 +101,11 @@ function newGame() {
 	}
 
 	// Adds a single white pawn on d2
+
 	board[3].splice(1, 1, new Pawn(0));
 	board[4].splice(1, 1, new King(0));
 	board[4].splice(6, 1, new King(1));
+  board[4].splice(4, 1, new Tower(0));
 }
 
 function drawBoard() {
