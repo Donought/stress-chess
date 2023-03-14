@@ -64,7 +64,7 @@ function mousePressed() {
 	actTiles = [];
 	actPiece = [];
 
-	if (x < 7 && y < 7 && 0 < x && 0 < y && lever == 0) {
+	if (x <= 7 && y <= 7 && 0 <= x && 0 <= y && lever == 0) {
 		let tile = board[x][y];
 		if (tile != "empty") {
 			actPiece = [x, y];
@@ -87,10 +87,12 @@ function newGame() {
 
 	// Adds a single white pawn on d2
 	board[3].splice(1, 1, new Pawn(0));
+	board[4].splice(1, 1, new King(0));
+	board[4].splice(6, 1, new King(1));
 }
 
 function drawBoard() {
-	noStroke();
+noStroke();
   let boardSideLength = height - (height / 20) * 2;
   let squareSideLength = boardSideLength / 8;
   let boardX = (width - boardSideLength) / 2;
@@ -180,7 +182,7 @@ function drawBoard() {
 		});
 	});
 
-	// Draw available moves
+	//Draw available moves
 	translate(-squareSideLength / 2, -squareSideLength / 2);
 	fill(180, 220, 255, 255 * 0.5);
 	actTiles.forEach(function (tile) {

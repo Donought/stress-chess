@@ -29,3 +29,5 @@ class Pawn extends Base {
 		this.moves = m;
 	}
 }
+
+
