@@ -39,10 +39,14 @@ rules(x, y) {
 		if (0 == this.color) {
 			let temp = y;
 			// Up movement
+
 			for (let i = 0; i < 8; i++) {
+			{
 				m.push([x, y - 1]);
-				y = y - 1
+			
+				y = y - 1}
 			}
+
 			y = temp;	
 			// Down movement
 				for (let i = 0; i < 8; i++) {
