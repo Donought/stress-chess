@@ -29,6 +29,7 @@ class Pawn extends Base {
 		this.moves = m;
 	}
 }
+
 class Tower extends Base{
 	constructor(c){
 		super(c,5)
@@ -69,5 +70,6 @@ rules(x, y) {
 		this.moves = m;
 	}
 }
+
 
 
