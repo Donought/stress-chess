@@ -37,13 +37,37 @@ class Rook extends Base {
 
 	rules(x, y) {
 		let m = [];
-		for (let i = 0; i < 9; i++) {
-			//Top Left
-			m.push([x - i, y ]);
-			m.push([x  + i, y]);
-			m.push([x, y + i]);
-			m.push([x, y - i]);
-		
+		// Basic rules
+		if (0 == this.color) {
+			let temp = y;
+			// Up movement
+
+			for (let i = 0; i < 8; i++) {
+				{
+					m.push([x, y - 1]);
+
+					y = y - 1;
+				}
+			}
+
+			y = temp;
+			// Down movement
+			for (let i = 0; i < 8; i++) {
+				m.push([x, y + 1]);
+				y = y + 1;
+			}
+			y = temp;
+		}
+		// Left movement
+		let temp = x;
+		for (let i = 0; i < 8; i++) {
+			m.push([x - 1, y]);
+			x = x - 1;
+		}
+		x = temp;
+		for (let i = 0; i < 8; i++) {
+			m.push([x + 1, y]);
+			x = x + 1;
 		}
 		this.moves = m;
 	}
@@ -129,5 +153,5 @@ class Knight extends Base {
 class Queen extends Base {
 	constructor(c) {
 		super(c, 4);
-	}
+	}	
 }
