@@ -84,8 +84,18 @@ function mousePressed() {
 			// GENERAL RULES CAN BE PUT HERE
 			// Use .filter() method to only put tiles that match certain conditions from tile.moves to actTiles
 			// The function is written as an arrow function
-			actTiles = tile.moves.filter(function (tile) {
-				return 0 <= tile[0] && tile[0] <= 7 && 0 <= tile[1] && tile[1] <= 7;
+			actTiles = tile.moves.filter(function (move) {
+				let mx = move[0];
+				let my = move[1];
+				return (
+					// Only tiles inside of board
+					0 <= mx &&
+					mx <= 7 &&
+					0 <= my &&
+					my <= 7 &&
+					// Move isn't on clicked tile
+					(mx != x || my != y)
+				);
 			});
 			console.log(actTiles);
 		}
@@ -104,22 +114,21 @@ function newGame() {
 
 	//Adds all pieces
 	//Black pieces
-	for(let i = 0; i < 8; i++){
-	board[0 + i].splice(1, 1, new Pawn(0));
+	for (let i = 0; i < 8; i++) {
+		board[0 + i].splice(1, 1, new Pawn(0));
 	}
 	board[4].splice(0, 1, new King(0));
 	board[0].splice(0, 1, new Rook(0));
 	board[7].splice(0, 1, new Rook(0));
-  	board[1].splice(0, 1, new Knight(0));
-  	board[6].splice(0, 1, new Knight(0));
+	board[1].splice(0, 1, new Knight(0));
+	board[6].splice(0, 1, new Knight(0));
 	board[2].splice(0, 1, new Bishop(0));
-  	board[5].splice(0, 1, new Bishop(0));
-  	board[3].splice(0, 1, new Queen(0));
-
+	board[5].splice(0, 1, new Bishop(0));
+	board[3].splice(0, 1, new Queen(0));
 
 	//White pieces
-	for(let i = 0; i < 8; i++){
-	board[0 + i].splice(6, 1, new Pawn(1));
+	for (let i = 0; i < 8; i++) {
+		board[0 + i].splice(6, 1, new Pawn(1));
 	}
 	board[4].splice(7, 1, new King(1));
 	board[0].splice(7, 1, new Rook(1));
@@ -129,7 +138,6 @@ function newGame() {
 	board[2].splice(7, 1, new Bishop(1));
 	board[5].splice(7, 1, new Bishop(1));
 	board[3].splice(7, 1, new Queen(1));
-
 }
 
 function drawBoard() {
