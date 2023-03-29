@@ -44,7 +44,9 @@ function draw() {
 }
 
 function mousePressed() {
-	let lever = 0; // Switch, whatever
+	// This lever makes it so that a piece will not be activated when you click on it while it is blue,
+	// because in that case, you are trying to kill the piece, not move it.
+	let lever = 0;
 
 	// Grid coordinates for tile that you pressed on
 	let x = Math.floor(
