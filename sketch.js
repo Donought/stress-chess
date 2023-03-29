@@ -90,15 +90,70 @@ function mousePressed() {
 				let mx = move[0];
 				let my = move[1];
 				return (
-					// Only tiles inside of board
+					// Only tiles inside of board:
 					0 <= mx &&
 					mx <= 7 &&
 					0 <= my &&
 					my <= 7 &&
-					// Move isn't on clicked tile
-					(mx != x || my != y)
+					// Move isn't on clicked tile:
+					(mx != x || my != y) &&
+					// If knight, then quickly sort out
+					(function () {
+						if (board[mx][my] != "empty") {
+							console.log(board[x][y].color != board[mx][my].color);
+							return board[x][y].color != board[mx][my].color;
+						} else {
+							return true;
+						}
+					})()
 				);
 			});
+
+			let m = [];
+			if (board[actPiece[0]][actPiece[1]].type != 2) {
+				for (let i = 0; i < 3; i++) {
+					for (let j = 0; j < 3; j++) {
+						let dir = [i - 1, j - 1]; // The direction to check in (normalized vector)
+						if (dir[0] != 0 || dir[1] != 0) {
+							let chkTile = [actPiece[0] + dir[0], actPiece[1] + dir[1]]; // First tile in direction to check
+							while (true) {
+								if (
+									7 < chkTile[0] ||
+									7 < chkTile[1] ||
+									chkTile[0] < 0 ||
+									chkTile[1] < 0
+								) {
+									break;
+								}
+								if (board[chkTile[0]][chkTile[1]] != "empty") {
+									/*if (
+										board[chkTile[0]][chkTile[1]].color !=
+										board[actPiece[0]][actPiece[1]].color
+									) {
+										if (arrayInArrayOccurence(actTiles, chkTile) == true) {
+											m.push([chkTile[0], chkTile[1]]);
+										}
+									}*/
+									if (arrayInArrayOccurence(actTiles, chkTile) == true) {
+										m.push([chkTile[0], chkTile[1]]);
+									}
+									break;
+								} else {
+									if (arrayInArrayOccurence(actTiles, chkTile) == true) {
+										m.push([chkTile[0], chkTile[1]]);
+									}
+								}
+
+								chkTile[0] += dir[0];
+								chkTile[1] += dir[1];
+							}
+						}
+					}
+				}
+
+				actTiles = m;
+			}
+
 			console.log(actTiles);
 		}
 	}

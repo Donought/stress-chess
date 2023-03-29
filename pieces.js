@@ -127,6 +127,7 @@ class Knight extends Base {
 		this.moves = m;
 	}
 }
+
 class Queen extends Base {
 	constructor(c) {
 		super(c, 4);
