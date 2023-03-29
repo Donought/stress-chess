@@ -44,6 +44,7 @@ function draw() {
 }
 
 function mousePressed() {
+	console.log(board);
 	let lever = 0; // Switch, whatever
 
 	// Grid coordinates for tile that you pressed on
