@@ -14,7 +14,6 @@ let actTiles = [];
 
 let GC;
 
-
 function preload() {
 	data = loadXML("spritesheet/data.xml");
 	sheet = loadImage("spritesheet/sheet.png");
@@ -40,14 +39,12 @@ function setup() {
 
 	newGame();
 	console.log(board);
-	
 }
 
 function draw() {
 	GC.winCheck();
 	background(240);
 	drawBoard();
-	
 }
 
 function mousePressed() {
@@ -104,10 +101,9 @@ function mousePressed() {
 					my <= 7 &&
 					// Move isn't on clicked tile:
 					(mx != x || my != y) &&
-					// If knight, then quickly sort out
+					// Sort out moves that kill allies:
 					(function () {
 						if (board[mx][my] != "empty") {
-							console.log(board[x][y].color != board[mx][my].color);
 							return board[x][y].color != board[mx][my].color;
 						} else {
 							return true;
@@ -116,14 +112,29 @@ function mousePressed() {
 				);
 			});
 
+			// For all pieces except knight, filter out moves where a piece jumps over other pieces.
+			// Essentially, check for tiles in all directions until another piece is reached,
+			// then add moves from actTiles that overlap with these tiles to m
+
+			// Temporary valid move array
 			let m = [];
+
+			// If-statement to sort out knight
 			if (board[actPiece[0]][actPiece[1]].type != 2) {
+				// Use for-loops to check in all 8 directions. The 9th is filtered out later
 				for (let i = 0; i < 3; i++) {
 					for (let j = 0; j < 3; j++) {
-						let dir = [i - 1, j - 1]; // The direction to check in (normalized vector)
+						// The direction to check in (normalized vector)
+						let dir = [i - 1, j - 1];
+
+						// Filter out vector (0, 0), as it is not a direction
 						if (dir[0] != 0 || dir[1] != 0) {
-							let chkTile = [actPiece[0] + dir[0], actPiece[1] + dir[1]]; // First tile in direction to check
+							// First tile in direction to check
+							let chkTile = [actPiece[0] + dir[0], actPiece[1] + dir[1]];
+
+							// Keep checking in direction until a break
 							while (true) {
+								// If tile is out of bounds, break
 								if (
 									7 < chkTile[0] ||
 									7 < chkTile[1] ||
@@ -132,25 +143,22 @@ function mousePressed() {
 								) {
 									break;
 								}
+
+								// If tile is NOT "empty", then only include it if it overlaps with actTiles, then break
 								if (board[chkTile[0]][chkTile[1]] != "empty") {
-									/*if (
-										board[chkTile[0]][chkTile[1]].color !=
-										board[actPiece[0]][actPiece[1]].color
-									) {
-										if (arrayInArrayOccurence(actTiles, chkTile) == true) {
-											m.push([chkTile[0], chkTile[1]]);
-										}
-									}*/
 									if (arrayInArrayOccurence(actTiles, chkTile) == true) {
 										m.push([chkTile[0], chkTile[1]]);
 									}
 									break;
-								} else {
+								}
+								// If tile is "empty", include if it overlaps with actTiles, but don't break
+								else {
 									if (arrayInArrayOccurence(actTiles, chkTile) == true) {
 										m.push([chkTile[0], chkTile[1]]);
 									}
 								}
 
+								// Next tile in direction
 								chkTile[0] += dir[0];
 								chkTile[1] += dir[1];
 							}
@@ -158,10 +166,9 @@ function mousePressed() {
 					}
 				}
 
+				// Replace actTiles' contents with the temporary valid move array
 				actTiles = m;
 			}
-
-			console.log(actTiles);
 		}
 	}
 }
