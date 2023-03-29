@@ -1,15 +1,22 @@
 class Base {
-	constructor(c, t) {
+	constructor(x, y, c, t) {
 		this.color = c; // 0 = black, 1 = white
 		this.type = t; // 0 - 5 (spritesheet)
 		this.sprite = sprites[t + c * 6];
 		this.moves = []; // Available moves
+		this.x = x;
+		this.y = y
+	}
+
+	isOffBoard(newX, newY){
+		return newX > 7 || newX < 0 || newY > 7 || newY < 0;
+		
 	}
 }
 
 class Pawn extends Base {
-	constructor(c) {
-		super(c, 3);
+	constructor(x, y, c) {
+		super(x, y, c, 3);
 	}
 
 	rules(x, y) {
@@ -31,8 +38,8 @@ class Pawn extends Base {
 }
 
 class Rook extends Base {
-	constructor(c) {
-		super(c, 5);
+	constructor(x, y, c) {
+		super(x, y, c, 5);
 	}
 
 	rules(x, y) {
@@ -51,8 +58,8 @@ class Rook extends Base {
 }
 
 class King extends Base {
-	constructor(c) {
-		super(c, 1);
+	constructor(x, y, c) {
+		super(x, y, c, 1);
 	}
 
 	rules(x, y) {
@@ -80,8 +87,8 @@ class King extends Base {
 }
 
 class Bishop extends Base {
-	constructor(c) {
-		super(c, 0);
+	constructor(x, y, c) {
+		super(x, y, c, 0);
 	}
 
 	rules(x, y) {
@@ -100,36 +107,57 @@ class Bishop extends Base {
 }
 
 class Knight extends Base {
-	constructor(c) {
-		super(c, 2);
+	constructor(x, y, c) {
+		super(x, y, c, 2);
+		
 	}
 
-	rules(x, y) {
+	rules(tiles) {
 		let m = [];
 		//Moves
 		//1
-		m.push([x - 1, y - 2]);
+		m.push(this.getMove(-1, -2, tiles));
 		//2
-		m.push([x + 1, y - 2]);
+		m.push(this.getMove(1, -2, tiles));
 		//3
-		m.push([x + 2, y - 1]);
+		m.push(this.getMove(2, -1, tiles));
 		//4
-		m.push([x + 2, y + 1]);
+		m.push(this.getMove(2, 1, tiles));
 		//5
-		m.push([x + 1, y + 2]);
+		m.push(this.getMove(1, 2, tiles));
 		//6
-		m.push([x - 1, y + 2]);
+		m.push(this.getMove(-1, 2, tiles));
 		//7
-		m.push([x - 2, y + 1]);
+		m.push(this.getMove(-2, 1, tiles));
 		//8
-		m.push([x - 2, y - 1]);
+		m.push(this.getMove(-2, -1, tiles));
 
 		this.moves = m;
 	}
+	 getMove(xDir, yDir, tiles){
+		let newX = this.x + xDir;
+		let newY = this.y + yDir;
+
+		if(this.isOffBoard(newX, newY)) {
+			return;
+		}
+
+		if(tiles[newX][newY]){
+			if(tiles[newX][newY].c !== this.c) {
+				return {x : newX, y : newY};
+			}
+
+		} else {
+			return {x : newX, y : newY}
+		}
+
+
+
+	 }
 }
 class Queen extends Base {
-	constructor(c) {
-		super(c, 4);
+	constructor(x, y, c) {
+		super(x, y, c, 4);
 	}
 
 	rules(x, y) {

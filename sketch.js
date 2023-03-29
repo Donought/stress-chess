@@ -4,6 +4,7 @@ let sprites = [];
 let bogstaver = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
 let board = []; // Contains an array that represents the board
+let tiles = [];
 let offset = 0.85; // How much smaller the pieces are than the squares
 
 let boardSideLength;
@@ -71,7 +72,7 @@ function mousePressed() {
 	actTiles = [];
 	actPiece = [];
 
-	// Only do something if you clicked within the board and if the levver hasn't been activated
+	// Only do something if you clicked within the board and if the lever hasn't been activated
 	if (x <= 7 && y <= 7 && 0 <= x && 0 <= y && lever == 0) {
 		let tile = board[x][y]; // Gets clicked tile from board
 
@@ -89,12 +90,12 @@ function mousePressed() {
 				let mx = move[0];
 				let my = move[1];
 				return (
-					// Only tiles inside of board
+					/*// Only tiles inside of board
 					0 <= mx &&
 					mx <= 7 &&
 					0 <= my &&
 					my <= 7 &&
-					// Move isn't on clicked tile
+					// Move isn't on clicked tile*/
 					(mx != x || my != y)
 				);
 			});
@@ -111,34 +112,55 @@ function newGame() {
 		for (let j = 0; j < 8; j++) {
 			board[i].push("empty");
 		}
+	
 	}
-
+	/*for (let i = 0; i < 8; i++) {
+		tiles[i] = []
+		for (let j = 0; j < 8; j++) {
+			tiles[i][j] = "empty";
+		}
+	}*/
 	//Adds all pieces
 	//Black pieces
 	for (let i = 0; i < 8; i++) {
-		board[0 + i].splice(1, 1, new Pawn(0));
+		board[0 + i].splice(1, 1, new Pawn(i, 1, 0));
 	}
-	board[4].splice(0, 1, new King(0));
-	board[0].splice(0, 1, new Rook(0));
-	board[7].splice(0, 1, new Rook(0));
-	board[1].splice(0, 1, new Knight(0));
-	board[6].splice(0, 1, new Knight(0));
-	board[2].splice(0, 1, new Bishop(0));
-	board[5].splice(0, 1, new Bishop(0));
-	board[3].splice(0, 1, new Queen(0));
+	board[4].splice(0, 1, new King(4, 0, 0));
+	board[0].splice(0, 1, new Rook(0, 0, 0));
+	board[7].splice(0, 1, new Rook(7, 0, 0));
+	board[1].splice(0, 1, new Knight(1, 0, 0));
+	board[6].splice(0, 1, new Knight(6, 0, 0));
+	board[2].splice(0, 1, new Bishop(2, 0, 0));
+	board[5].splice(0, 1, new Bishop(5, 0, 0));
+	board[3].splice(0, 1, new Queen(3, 0, 0));
 
 	//White pieces
 	for (let i = 0; i < 8; i++) {
-		board[0 + i].splice(6, 1, new Pawn(1));
+		board[0 + i].splice(6, 1, new Pawn(i, 6, 1));
 	}
-	board[4].splice(7, 1, new King(1));
-	board[0].splice(7, 1, new Rook(1));
-	board[7].splice(7, 1, new Rook(1));
-	board[1].splice(7, 1, new Knight(1));
-	board[6].splice(7, 1, new Knight(1));
-	board[2].splice(7, 1, new Bishop(1));
-	board[5].splice(7, 1, new Bishop(1));
-	board[3].splice(7, 1, new Queen(1));
+	board[4].splice(7, 1, new King(4, 7, 1));
+	board[0].splice(7, 1, new Rook(0, 7,1));
+	board[7].splice(7, 1, new Rook(7, 7, 1));
+	board[1].splice(7, 1, new Knight(1, 7, 1));
+	board[6].splice(7, 1, new Knight(6, 7, 1));
+	board[2].splice(7, 1, new Bishop(2, 7,1));
+	board[5].splice(7, 1, new Bishop(5, 7, 1));
+	board[3].splice(7, 1, new Queen(3, 7, 1));
+
+ let tiles = []
+ for (let i = 0; i < 8; i++){
+ 	tiles[i] = [];	
+	for(let j = 0; j < 8; j++){
+ 		tiles[i][j] = "empty";
+ 		}
+	}
+for(let i = 0; i < 8; i++){
+	for(let j = 0; j < 8; j++)
+	tiles[i][j] = board[i][j];
+}
+
+	console.log(tiles, "1")
+
 }
 
 function drawBoard() {
