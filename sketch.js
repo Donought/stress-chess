@@ -12,12 +12,16 @@ let squareSideLength;
 let actPiece = [];
 let actTiles = [];
 
+let GC;
+
+
 function preload() {
 	data = loadXML("spritesheet/data.xml");
 	sheet = loadImage("spritesheet/sheet.png");
 }
 
 function setup() {
+	GC = new GameController();
 	createCanvas(innerWidth, innerHeight);
 
 	boardSideLength = height - (height / 20) * 2;
@@ -36,11 +40,14 @@ function setup() {
 
 	newGame();
 	console.log(board);
+	
 }
 
 function draw() {
+	GC.winCheck();
 	background(240);
 	drawBoard();
+	
 }
 
 function mousePressed() {
