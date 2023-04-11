@@ -15,15 +15,15 @@ class Pawn extends Base {
 	rules(x, y) {
 		let m = [];
 		// Basic rules
-		if (0 < this.color) {
-			m.push([x, y - 1]);
-			if (5 < y) {
-				m.push([x, y - 2]);
-			}
-		} else {
-			m.push([x, y + 1]);
-			if (y < 2) {
-				m.push([x, y + 2]);
+		let c = (this.color * 2 - 1) * -1;
+		for (let i = -1; i < 2; i++) {
+			if (board[x + i][y + c] != "empty" && i != 0) {
+				m.push([x + i, y + c]);
+			} else if (board[x + i][y + c] == "empty" && i == 0) {
+				m.push([x, y + c]);
+				if (board[x][y + c * 2] == "empty" && y == 1 + this.color * 5) {
+					m.push([x, y + c * 2]);
+				}
 			}
 		}
 		this.moves = m;
