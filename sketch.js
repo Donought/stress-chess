@@ -13,6 +13,7 @@ let actPiece = [];
 let actTiles = [];
 
 let GC;
+let playerTurnText;
 
 function preload() {
 	data = loadXML("spritesheet/data.xml");
@@ -21,7 +22,8 @@ function preload() {
 
 function setup() {
 	GC = new GameController();
-	createCanvas(innerWidth, innerHeight);
+	GC.playerText()
+	createCanvas(window.innerWidth, window.innerHeight);
 
 	boardSideLength = height - (height / 20) * 2;
 	squareSideLength = boardSideLength / 8;
@@ -39,12 +41,19 @@ function setup() {
 
 	newGame();
 	console.log(board);
+	
+	playerTurnText = createDiv(GC.playerTurn);
+	playerTurnText.position((windowWidth - boardSideLength) / 2 / 3, 50);
+	playerTurnText.style('font-size', '20px');
+	
+	
 }
 
 function draw() {
 	GC.winCheck();
 	background(240);
 	drawBoard();
+	
 }
 
 function mousePressed() {
@@ -70,6 +79,8 @@ function mousePressed() {
 			board[actPiece[0]].splice(actPiece[1], 1, "empty");
 			board[x].splice(y, 1, temp);
 			lever++;
+			GC.turn = !GC.turn
+			gameText();
 		}
 	});
 
@@ -82,6 +93,8 @@ function mousePressed() {
 
 		// If tile is not empty, then...
 		if (tile != "empty") {
+		// if tile is same color as player turn	
+		if(tile.color == GC.turn){
 			// Set coords as active piece
 			actPiece = [x, y];
 			// Run rule function for piece
@@ -169,6 +182,7 @@ function mousePressed() {
 				// Replace actTiles' contents with the temporary valid move array
 				actTiles = m;
 			}
+			}
 		}
 	}
 }
@@ -213,8 +227,6 @@ function newGame() {
 
 function drawBoard() {
 	noStroke();
-	let boardSideLength = height - (height / 20) * 2;
-	let squareSideLength = boardSideLength / 8;
 	let boardX = (width - boardSideLength) / 2;
 	let boardY = (height - boardSideLength) / 2;
 	let r = 0;
@@ -333,4 +345,18 @@ function drawBoard() {
 		);
 	});
 	pop();
+}
+
+// Text in corner for whos turn it is
+function gameText() {
+	GC.playerText();
+	// remove previous text
+	playerTurnText.remove()
+	// create a new for the current player
+	playerTurnText = createDiv(GC.playerTurn);
+	playerTurnText.position((windowWidth - boardSideLength) / 2 / 3, 50);
+	playerTurnText.style('font-size', '20px');
+
+	//console.log(playerTurnText.value())
+
 }
