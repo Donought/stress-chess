@@ -15,15 +15,36 @@ class Pawn extends Base {
 	rules(x, y) {
 		let m = [];
 		// Basic rules
-		let c = (this.color * 2 - 1) * -1;
-		for (let i = -1; i < 2; i++) {
-			if (board[x + i][y + c] != "empty" && i != 0) {
-				m.push([x + i, y + c]);
-			} else if (board[x + i][y + c] == "empty" && i == 0) {
-				m.push([x, y + c]);
-				if (board[x][y + c * 2] == "empty" && y == 1 + this.color * 5) {
-					m.push([x, y + c * 2]);
-				}
+		let c = (this.color * 2 - 1) * -1; // Either 1 or -1 depending on which direction pawn moves in
+
+		// In order to not cause an error, it must first be checked whether or not the potential move is out of bounds
+		// Only matters for x-axis, since the error is caused by essentially trying undefined[y] at board[x][y]
+		if (x - 1 >= 0) {
+			// Only allow diagonal when killing an enemy or when moving to the en passant field
+			if (
+				board[x - 1][y + c] != "empty" ||
+				(x - 1 == epField[0] && y + c == epField[1] && this.color != epField[2])
+			) {
+				m.push([x - 1, y + c]);
+			}
+		}
+
+		// Identical to the if-statement above, just for the other side
+		if (x + 1 <= 7) {
+			if (
+				board[x + 1][y + c] != "empty" ||
+				(x + 1 == epField[0] && y + c == epField[1] && this.color != epField[2])
+			) {
+				m.push([x + 1, y + c]);
+			}
+		}
+
+		// Allow forward movement only when nothing is in the way
+		if (board[x][y + c] == "empty") {
+			m.push([x, y + c]);
+			// If in start position, then allow a double forward movement
+			if (board[x][y + c * 2] == "empty" && y == 1 + this.color * 5) {
+				m.push([x, y + c * 2]);
 			}
 		}
 		this.moves = m;

@@ -14,6 +14,8 @@ let actTiles = [];
 
 let GC;
 
+let epField = [];
+
 function preload() {
 	data = loadXML("spritesheet/data.xml");
 	sheet = loadImage("spritesheet/sheet.png");
@@ -69,6 +71,30 @@ function mousePressed() {
 			let temp = board[actPiece[0]][actPiece[1]];
 			board[actPiece[0]].splice(actPiece[1], 1, "empty");
 			board[x].splice(y, 1, temp);
+
+			// If en passant move is enacted, then remove pawn in the field above or below
+			if (temp.type == 3 && x == epField[0] && y == epField[1]) {
+				board[x].splice(y + (temp.color * 2 - 1), 1, "empty");
+			}
+
+			// For obvious reasons, clear epField after the prior if-statement, but before the following
+			epField = [];
+
+			// If a pawn has moved two tiles forwards or backwards, then fill epField variable
+			if (temp.type == 3) {
+				if (temp.color == 0) {
+					if (y - actPiece[1] > 1) {
+						// epField gets the coords for the field on which en passant is possible
+						// Additionally, epField gets a number to indicate the color of the pawn
+						epField = [x, y - 1, 0];
+					}
+				} else {
+					if (actPiece[1] - y > 1) {
+						epField = [x, y + 1, 1];
+					}
+				}
+			}
+
 			lever++;
 		}
 	});
