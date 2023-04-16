@@ -24,7 +24,7 @@ function preload() {
 
 function setup() {
 	GC = new GameController();
-	GC.playerText()
+	GC.playerText();
 	createCanvas(window.innerWidth, window.innerHeight);
 
 	boardSideLength = height - (height / 20) * 2;
@@ -43,19 +43,16 @@ function setup() {
 
 	newGame();
 	console.log(board);
-	
+
 	playerTurnText = createDiv(GC.playerTurn);
 	playerTurnText.position((windowWidth - boardSideLength) / 2 / 3, 50);
-	playerTurnText.style('font-size', '20px');
-	
-	
+	playerTurnText.style("font-size", "20px");
 }
 
 function draw() {
 	GC.winCheck();
 	background(240);
 	drawBoard();
-	
 }
 
 function mousePressed() {
@@ -89,8 +86,9 @@ function mousePressed() {
 			// For obvious reasons, clear epField after the prior if-statement, but before the following
 			epField = [];
 
-			// If a pawn has moved two tiles forwards or backwards, then fill epField variable
+			// If piece is pawn...
 			if (temp.type == 3) {
+				// If a pawn has moved two tiles forwards or backwards, then fill epField variable
 				if (temp.color == 0) {
 					if (y - actPiece[1] > 1) {
 						// epField gets the coords for the field on which en passant is possible
@@ -102,10 +100,33 @@ function mousePressed() {
 						epField = [x, y + 1, 1];
 					}
 				}
+
+				// if pawn has reached last row, then prompt user to choose a new piece
+				if (y == 0 || y == 7) {
+					while (true) {
+						let chosenPiece = prompt(
+							"Please choose a piece to replace your ascended pawn:\n[q]ueen, [r]ook, [b]ishop, or k[n]ight",
+							"q"
+						);
+						if (chosenPiece == "q") {
+							board[x].splice(y, 1, new Queen(temp.color));
+							break;
+						} else if (chosenPiece == "r") {
+							board[x].splice(y, 1, new Rook(temp.color));
+							break;
+						} else if (chosenPiece == "b") {
+							board[x].splice(y, 1, new Bishop(temp.color));
+							break;
+						} else if (chosenPiece == "n") {
+							board[x].splice(y, 1, new Knight(temp.color));
+							break;
+						}
+					}
+				}
 			}
 
 			lever++;
-			GC.turn = !GC.turn
+			GC.turn = !GC.turn;
 			gameText();
 		}
 	});
@@ -119,95 +140,95 @@ function mousePressed() {
 
 		// If tile is not empty, then...
 		if (tile != "empty") {
-		// if tile is same color as player turn	
-		if(tile.color == GC.turn){
-			// Set coords as active piece
-			actPiece = [x, y];
-			// Run rule function for piece
-			tile.rules(x, y);
+			// if tile is same color as player turn
+			if (tile.color == GC.turn) {
+				// Set coords as active piece
+				actPiece = [x, y];
+				// Run rule function for piece
+				tile.rules(x, y);
 
-			// GENERAL RULES CAN BE PUT HERE
-			// Use .filter() method to only put tiles that match certain conditions from tile.moves to actTiles
-			// The function is written as an arrow function
-			actTiles = tile.moves.filter(function (move) {
-				let mx = move[0];
-				let my = move[1];
-				return (
-					// Only tiles inside of board:
-					0 <= mx &&
-					mx <= 7 &&
-					0 <= my &&
-					my <= 7 &&
-					// Move isn't on clicked tile:
-					(mx != x || my != y) &&
-					// Sort out moves that kill allies:
-					(function () {
-						if (board[mx][my] != "empty") {
-							return board[x][y].color != board[mx][my].color;
-						} else {
-							return true;
-						}
-					})()
-				);
-			});
+				// GENERAL RULES CAN BE PUT HERE
+				// Use .filter() method to only put tiles that match certain conditions from tile.moves to actTiles
+				// The function is written as an arrow function
+				actTiles = tile.moves.filter(function (move) {
+					let mx = move[0];
+					let my = move[1];
+					return (
+						// Only tiles inside of board:
+						0 <= mx &&
+						mx <= 7 &&
+						0 <= my &&
+						my <= 7 &&
+						// Move isn't on clicked tile:
+						(mx != x || my != y) &&
+						// Sort out moves that kill allies:
+						(function () {
+							if (board[mx][my] != "empty") {
+								return board[x][y].color != board[mx][my].color;
+							} else {
+								return true;
+							}
+						})()
+					);
+				});
 
-			// For all pieces except knight, filter out moves where a piece jumps over other pieces.
-			// Essentially, check for tiles in all directions until another piece is reached,
-			// then add moves from actTiles that overlap with these tiles to m
+				// For all pieces except knight, filter out moves where a piece jumps over other pieces.
+				// Essentially, check for tiles in all directions until another piece is reached,
+				// then add moves from actTiles that overlap with these tiles to m
 
-			// Temporary valid move array
-			let m = [];
+				// Temporary valid move array
+				let m = [];
 
-			// If-statement to sort out knight
-			if (board[actPiece[0]][actPiece[1]].type != 2) {
-				// Use for-loops to check in all 8 directions. The 9th is filtered out later
-				for (let i = 0; i < 3; i++) {
-					for (let j = 0; j < 3; j++) {
-						// The direction to check in (normalized vector)
-						let dir = [i - 1, j - 1];
+				// If-statement to sort out knight
+				if (board[actPiece[0]][actPiece[1]].type != 2) {
+					// Use for-loops to check in all 8 directions. The 9th is filtered out later
+					for (let i = 0; i < 3; i++) {
+						for (let j = 0; j < 3; j++) {
+							// The direction to check in (normalized vector)
+							let dir = [i - 1, j - 1];
 
-						// Filter out vector (0, 0), as it is not a direction
-						if (dir[0] != 0 || dir[1] != 0) {
-							// First tile in direction to check
-							let chkTile = [actPiece[0] + dir[0], actPiece[1] + dir[1]];
+							// Filter out vector (0, 0), as it is not a direction
+							if (dir[0] != 0 || dir[1] != 0) {
+								// First tile in direction to check
+								let chkTile = [actPiece[0] + dir[0], actPiece[1] + dir[1]];
 
-							// Keep checking in direction until a break
-							while (true) {
-								// If tile is out of bounds, break
-								if (
-									7 < chkTile[0] ||
-									7 < chkTile[1] ||
-									chkTile[0] < 0 ||
-									chkTile[1] < 0
-								) {
-									break;
-								}
-
-								// If tile is NOT "empty", then only include it if it overlaps with actTiles, then break
-								if (board[chkTile[0]][chkTile[1]] != "empty") {
-									if (arrayInArrayOccurence(actTiles, chkTile) == true) {
-										m.push([chkTile[0], chkTile[1]]);
+								// Keep checking in direction until a break
+								while (true) {
+									// If tile is out of bounds, break
+									if (
+										7 < chkTile[0] ||
+										7 < chkTile[1] ||
+										chkTile[0] < 0 ||
+										chkTile[1] < 0
+									) {
+										break;
 									}
-									break;
-								}
-								// If tile is "empty", include if it overlaps with actTiles, but don't break
-								else {
-									if (arrayInArrayOccurence(actTiles, chkTile) == true) {
-										m.push([chkTile[0], chkTile[1]]);
-									}
-								}
 
-								// Next tile in direction
-								chkTile[0] += dir[0];
-								chkTile[1] += dir[1];
+									// If tile is NOT "empty", then only include it if it overlaps with actTiles, then break
+									if (board[chkTile[0]][chkTile[1]] != "empty") {
+										if (arrayInArrayOccurence(actTiles, chkTile) == true) {
+											m.push([chkTile[0], chkTile[1]]);
+										}
+										break;
+									}
+									// If tile is "empty", include if it overlaps with actTiles, but don't break
+									else {
+										if (arrayInArrayOccurence(actTiles, chkTile) == true) {
+											m.push([chkTile[0], chkTile[1]]);
+										}
+									}
+
+									// Next tile in direction
+									chkTile[0] += dir[0];
+									chkTile[1] += dir[1];
+								}
 							}
 						}
 					}
-				}
 
-				// Replace actTiles' contents with the temporary valid move array
-				actTiles = m;
-			}
+					// Replace actTiles' contents with the temporary valid move array
+					actTiles = m;
+				}
 			}
 		}
 	}
@@ -377,12 +398,11 @@ function drawBoard() {
 function gameText() {
 	GC.playerText();
 	// remove previous text
-	playerTurnText.remove()
+	playerTurnText.remove();
 	// create a new for the current player
 	playerTurnText = createDiv(GC.playerTurn);
 	playerTurnText.position((windowWidth - boardSideLength) / 2 / 3, 50);
-	playerTurnText.style('font-size', '20px');
+	playerTurnText.style("font-size", "20px");
 
 	//console.log(playerTurnText.value())
-
 }
