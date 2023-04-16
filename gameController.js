@@ -1,6 +1,6 @@
 class GameController {
 	constructor() {
-
+    this.turn = 1;
 
 	}
   winCheck(){
@@ -50,5 +50,15 @@ console.log(p1p.length,"white pieces remain")
 console.log(p2p.length,"black pieces remain")
 console.log(64-(p1p.length+p2p.length), "empty spaces")
 */
-}
+  }
+
+  playerText(){
+    let player;
+    if(this.turn == 1){
+     player = "Light player's"
+    } else {
+     player = "Dark player's"
+    }
+    this.playerTurn = (player + " turn");
+  }
 }
