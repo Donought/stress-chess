@@ -289,11 +289,11 @@ function drawBoard() {
     let t = 0;
     //Switch efter hvert loop for at starte med en ny farve ved første felt på række
     u = !u;
-    //If else statement afhængig af u's værdi
+
+    //Hvis u == true skal et for loop køre hvor det første felt er mørk
     if (u == true) {
-      //Hvis u == true skal et for loop køre hvor det første felt er mørk
-      //køres 4 gange, tegner 2 felter under hvert loop
       for (let i = 0; i <= 3; i++) {
+        //køres 4 gange, tegner 2 felter under hvert loop
         //Mørk felt tegnes
         fill(66, 48, 32);
         square(
@@ -313,10 +313,13 @@ function drawBoard() {
         //tilføje 1 til t
         t++;
       }
-      //Hvis u =/= true skal et for loop køre hvor det første felt er lys
-    } else {
+    }
+    
+    //Hvis u =/= true skal et for loop køre hvor det første felt er lys
+    else if (u == false) {
       for (let i = 0; i <= 3; i++) {
-        //lys felt tegne
+        //køres 4 gange, tegner 2 felter under hvert loop
+        //lys felt tegnes
         fill(213, 176, 122);
         square(
           boardX + squareSideLength * t,
@@ -336,6 +339,7 @@ function drawBoard() {
         t++;
       }
     }
+
     //tilføje 1 til r
     r++;
   }
