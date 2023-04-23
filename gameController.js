@@ -59,6 +59,6 @@ console.log(64-(p1p.length+p2p.length), "empty spaces")
     } else {
      player = "Sort spillers"
     }
-    this.playerTurn = (player + " tut");
+    this.playerTurn = (player + " tur");
   }
 }
