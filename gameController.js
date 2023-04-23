@@ -55,10 +55,10 @@ console.log(64-(p1p.length+p2p.length), "empty spaces")
   playerText(){
     let player;
     if(this.turn == 1){
-     player = "Light player's"
+     player = "Hvid spillers"
     } else {
-     player = "Dark player's"
+     player = "Sort spillers"
     }
-    this.playerTurn = (player + " turn");
+    this.playerTurn = (player + " tut");
   }
 }
