@@ -274,55 +274,73 @@ function newGame() {
 
 function drawBoard() {
   noStroke();
-  //Variables for board position on screen
+  //Variabler for plades position, som sikre at pladen er centreret på skærmen
   let boardX = (width - boardSideLength) / 2;
   let boardY = (height - boardSideLength) / 2;
+  //Variable for at ændre y væriden
   let r = 0;
+  //Variabel til at skifte mellem farvene for feltene
   u = true;
-  //Creates colored squares
+
+  //For Loop til at oprette felterne på pladen
   for (let j = 0; j <= 7; j++) {
+    //Variabel for at ændre x værdien,
+    //Resettes efter en række er fuldendt med 8 felter
     let t = 0;
+    //Switch efter hvert loop for at starte med en ny farve ved første felt på række
     u = !u;
+
+    //Hvis u == true skal et for loop køre hvor det første felt er mørk
     if (u == true) {
       for (let i = 0; i <= 3; i++) {
-        //Dark color
+        //køres 4 gange, tegner 2 felter under hvert loop
+        //Mørk felt tegnes
         fill(66, 48, 32);
         square(
           boardX + squareSideLength * t,
           boardY + squareSideLength * r,
           squareSideLength
         );
+        //tilføje 1 til t
         t++;
-        //Light color
+        //lys felt tegne
         fill(213, 176, 122);
         square(
           boardX + squareSideLength * t,
           boardY + squareSideLength * r,
           squareSideLength
         );
-        t++;
-      }
-    } else {
-      for (let i = 0; i <= 3; i++) {
-        //Light color
-        fill(213, 176, 122);
-        square(
-          boardX + squareSideLength * t,
-          boardY + squareSideLength * r,
-          squareSideLength
-        );
-        t++;
-        //Dark color
-        fill(66, 48, 32);
-        square(
-          boardX + squareSideLength * t,
-          boardY + squareSideLength * r,
-          squareSideLength
-        );
+        //tilføje 1 til t
         t++;
       }
     }
 
+    //Hvis u =/= true skal et for loop køre hvor det første felt er lys
+    else if (u == false) {
+      for (let i = 0; i <= 3; i++) {
+        //køres 4 gange, tegner 2 felter under hvert loop
+        //lys felt tegnes
+        fill(213, 176, 122);
+        square(
+          boardX + squareSideLength * t,
+          boardY + squareSideLength * r,
+          squareSideLength
+        );
+        //tilføje 1 til t
+        t++;
+        //Mørk felt tegnes
+        fill(66, 48, 32);
+        square(
+          boardX + squareSideLength * t,
+          boardY + squareSideLength * r,
+          squareSideLength
+        );
+        //tilføje 1 til t
+        t++;
+      }
+    }
+
+    //tilføje 1 til r
     r++;
   }
 
