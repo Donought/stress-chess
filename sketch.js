@@ -1,13 +1,14 @@
 let data;
 let sheet;
+
 let sprites = [];
 let bogstaver = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
-let board = []; // Contains an array that represents the board
-let offset = 0.85; // How much smaller the pieces are than the squares
-
 let boardSideLength;
 let squareSideLength;
+
+let board = []; // Contains an array that represents the board
+let offset = 0.85; // How much smaller the pieces are than the squares
 
 let actPiece = [];
 let actTiles = [];
@@ -344,38 +345,29 @@ function drawBoard() {
     r++;
   }
 
-  //Numbers and letters at the sides
   for (let i = 0; i < 8; i++) {
     fill(0);
-    textAlign(CENTER, CENTER);
-    textSize(boardY - boardY / 10);
-    text(
-      bogstaver[i],
-      boardX + squareSideLength * i,
-      0,
-      squareSideLength,
-      boardY
-    );
-    text(
-      bogstaver[i],
-      boardX + squareSideLength * i,
-      height - boardY,
-      squareSideLength,
-      boardY
-    );
 
+    //teksten står i midten både horizontalt og vertical
+    textAlign(CENTER, CENTER);
+    //Størrelsen på tekst som en variable
+    textSize(boardY - boardY / 10);
+    //bogstaver i toppen
+
+    text(bogstaver[i], boardX + squareSideLength * i, 0, squareSideLength, boardY);
+
+    //bogstaver i bunden
+    text(bogstaver[i], boardX + squareSideLength * i, height - boardY, squareSideLength, boardY);
+
+    //teksten er højre justeret med står i midten vertical
     textAlign(RIGHT, CENTER);
-    text(
-      8 - i,
-      boardX - squareSideLength / 4,
-      boardY + squareSideLength / 2 + squareSideLength * i
-    );
+    //tal i venstre side
+    text(8 - i, boardX - squareSideLength / 4, boardY + squareSideLength / 2 + squareSideLength * i);
+
+    //teksten er venstre justeret med står i midten vertical
     textAlign(LEFT, CENTER);
-    text(
-      8 - i,
-      width - boardX + squareSideLength / 4,
-      boardY + squareSideLength / 2 + squareSideLength * i
-    );
+    //tal i højre side
+    text(8 - i, width - boardX + squareSideLength / 4, boardY + squareSideLength / 2 + squareSideLength * i);
   }
 
   // Add piece sprites
