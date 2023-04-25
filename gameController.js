@@ -9,7 +9,8 @@ class GameController {
     let p1pl;
     let p2pl;
     let win;
-    let draw = false
+    let aPieces = []
+    let kings = []
 
 // Finds pieces for both sides using two for loops that checks what is in each position on the board
 for(let j = 0; j< 8; j++){
@@ -24,32 +25,39 @@ p1p.push(board[i][j])
 else{
 }
 
+// Places all pieces into a single array
+if(board[i][j] != "empty"){
+//console.log("Running")
+aPieces.push(board[i][j])
 }
 }
-//The lengths of the lists of pieces are defined as a variable for convinience
-p1pl = p1p.length
-p2pl = p2p.length
-
-
-// If a King dies a player wins
-
-
-
-
-// // If there are only Kings remaining the game ends in a draw
-if(p1pl+p2pl < 3){
-draw = true
 }
-//console.log(draw)
+//console.log(aPieces)
+for (let i = 0; i < aPieces.length; i++) {
+  if(aPieces[i].type == 1){
+    kings.push(aPieces[i])
+  //  console.log(kings)
+  }
+}
+
+if(aPieces.length< 3){
+  alert("Draw refresh to restart")
+}
+if(kings.length == 1){
+if(kings[0].color == 0){
+win = "Black player wins"
+}else{
+win = "White player wins"
+}
+//console.log(win)
+if(kings != "End"){
+alert(win+" refresh to restart")
+
+}}
 
 
 
-// For debugging, displays how many of each color is in play.
-/*
-console.log(p1p.length,"white pieces remain") 
-console.log(p2p.length,"black pieces remain")
-console.log(64-(p1p.length+p2p.length), "empty spaces")
-*/
+
   }
 
   playerText(){
@@ -59,6 +67,8 @@ console.log(64-(p1p.length+p2p.length), "empty spaces")
     } else {
      player = "Sort spillers"
     }
-    this.playerTurn = (player + " tur");
-  }
+   
+    this.playerTurn = (player + " tur");}
+    
+  
 }

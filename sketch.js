@@ -18,6 +18,7 @@ let playerTurnText;
 
 let epField = [];
 
+
 function preload() {
   data = loadXML("spritesheet/data.xml");
   sheet = loadImage("spritesheet/sheet.png");
