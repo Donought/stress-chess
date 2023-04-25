@@ -8,7 +8,6 @@ class GameController {
 		let aPieces = [];
 		let kings = [];
 		if (!this.gameStopped) {
-			// Finds pieces for both sides using two for loops that checks what is in each position on the board
 			for (let j = 0; j < 8; j++) {
 				for (let i = 0; i < 8; i++) {
 					// Places all pieces into a single array
