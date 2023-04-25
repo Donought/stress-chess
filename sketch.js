@@ -250,27 +250,27 @@ function newGame() {
   for (let i = 0; i < 8; i++) {
     board[0 + i].splice(1, 1, new Pawn(0));
   }
-  board[4].splice(0, 1, new King(0));
-  board[0].splice(0, 1, new Rook(0));
-  board[7].splice(0, 1, new Rook(0));
-  board[1].splice(0, 1, new Knight(0));
-  board[6].splice(0, 1, new Knight(0));
-  board[2].splice(0, 1, new Bishop(0));
-  board[5].splice(0, 1, new Bishop(0));
-  board[3].splice(0, 1, new Queen(0));
+  board[4][0] = new King(0);
+  board[0][0] = new Rook(0);
+  board[7][0] = new Rook(0);
+  board[1][0] = new Knight(0);
+  board[6][0] = new Knight(0);
+  board[2][0] = new Bishop(0);
+  board[5][0] = new Bishop(0);
+  board[3][0] = new Queen(0);
 
   //White pieces
   for (let i = 0; i < 8; i++) {
     board[0 + i].splice(6, 1, new Pawn(1));
   }
-  board[4].splice(7, 1, new King(1));
-  board[0].splice(7, 1, new Rook(1));
-  board[7].splice(7, 1, new Rook(1));
-  board[1].splice(7, 1, new Knight(1));
-  board[6].splice(7, 1, new Knight(1));
-  board[2].splice(7, 1, new Bishop(1));
-  board[5].splice(7, 1, new Bishop(1));
-  board[3].splice(7, 1, new Queen(1));
+  board[4][7] = new King(1);
+  board[0][7] = new Rook(1);
+  board[7][7] = new Rook(1);
+  board[1][7] = new Knight(1);
+  board[6][7] = new Knight(1);
+  board[2][7] = new Bishop(1);
+  board[5][7] = new Bishop(1);
+  board[3][7] = new Queen(1);
 }
 
 function drawBoard() {
