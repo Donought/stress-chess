@@ -435,6 +435,4 @@ function gameText() {
 
   //Ændre på teksten som givet som et inner HTML i elemntet
   playerTurnText.html(GC.playerTurn);
-
-  //console.log(playerTurnText.value())
 }
