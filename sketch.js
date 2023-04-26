@@ -428,15 +428,13 @@ function drawBoard() {
 	pop();
 }
 
-// Text in corner for whos turn it is
+//Tekst i venstre hjørne for at vise hvis spillers tur det er
 function gameText() {
+	//metode i gamecontrollerklasse
 	GC.playerText();
-	// remove previous text
-	playerTurnText.remove();
-	// create a new div element for the current player
-	playerTurnText = createDiv(GC.playerTurn);
-	playerTurnText.position((windowWidth - boardSideLength) / 2 / 3, 50);
-	playerTurnText.style("font-size", "20px");
 
+	//Ændre på teksten som givet som et inner HTML i elemntet
+	playerTurnText.html(GC.playerTurn)
+	
 	//console.log(playerTurnText.value())
 }
